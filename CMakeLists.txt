@@ -43,6 +43,7 @@ set(c_exe
     c1 
     c2 
     c3
+    cc1
     )
 
 foreach(exe_name IN LISTS c_exe)
