@@ -32,10 +32,11 @@ function(add_exc_one exe_name src_dir)
 endfunction()
 
 function(add_exc_glob exe_name src_dir)
-    file(GLOB SOURCES src/${src_dir}/*.cpp)
+    file(GLOB_RECURSE  SOURCES src/${src_dir}/*.cpp)
     add_executable(${exe_name} ${SOURCES})
     target_include_directories(${exe_name} PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/include
+        src/${src_dir}
     )
 endfunction()
 
@@ -46,6 +47,9 @@ set(c_exe
     cc1
     )
 
+set(f_exe
+    f1
+)
 foreach(exe_name IN LISTS c_exe)
     add_exc_one(${exe_name} c)
 endforeach()
@@ -57,6 +61,11 @@ set(b_exe
 foreach(exe_name IN LISTS b_exe)
     add_exc_glob(${exe_name} b/b1)
 endforeach()
+
+foreach(exe_name IN LISTS f_exe)
+    add_exc_glob(${exe_name} f/f1)
+endforeach()
+
 
 # 如果您有任何依赖库，可以在这里添加
 # find_package(some_package REQUIRED)
